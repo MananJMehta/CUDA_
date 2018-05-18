@@ -1,0 +1,146 @@
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ make
+make: *** No rule to make target 'cmpe214_matMul_const.o', needed by 'const'.  Stop.
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ ls
+cmpe214_matMul.cu  cmpe214_matMul_global.cu  Makefile
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ make global 
+nvcc -I/usr/local/cuda/include -I. -lineinfo -arch=sm_53 --ptxas-options=-v -g   -c cmpe214_matMul_global.cu -o cmpe214_matMul_global.o
+cmpe214_matMul_global.cu(165): error: a __global__ function call must be configured
+
+1 error detected in the compilation of "/tmp/tmpxft_00001803_00000000-7_cmpe214_matMul_global.cpp1.ii".
+Makefile:30: recipe for target 'cmpe214_matMul_global.o' failed
+make: *** [cmpe214_matMul_global.o] Error 2
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ ^C
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ LS
+bash: LS: command not found
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ ls
+cmpe214_matMul.cu  cmpe214_matMul_global.cu  Makefile
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ make global 
+nvcc -I/usr/local/cuda/include -I. -lineinfo -arch=sm_53 --ptxas-options=-v -g   -c cmpe214_matMul_global.cu -o cmpe214_matMul_global.o
+cmpe214_matMul_global.cu(13): error: this declaration has no storage class or type specifier
+
+cmpe214_matMul_global.cu(16): error: expected a ";"
+
+cmpe214_matMul_global.cu(96): error: identifier "computeGold" is undefined
+
+cmpe214_matMul_global.cu(166): error: expression must have integral or enum type
+
+cmpe214_matMul_global.cu(166): warning: expression has no effect
+
+cmpe214_matMul_global.cu(166): warning: expression has no effect
+
+cmpe214_matMul_global.cu(166): error: expression must have integral or enum type
+
+5 errors detected in the compilation of "/tmp/tmpxft_0000188d_00000000-7_cmpe214_matMul_global.cpp1.ii".
+Makefile:30: recipe for target 'cmpe214_matMul_global.o' failed
+make: *** [cmpe214_matMul_global.o] Error 2
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ make global 
+nvcc -I/usr/local/cuda/include -I. -lineinfo -arch=sm_53 --ptxas-options=-v -g   -c cmpe214_matMul_global.cu -o cmpe214_matMul_global.o
+cmpe214_matMul_global.cu(166): error: expression must have integral or enum type
+
+cmpe214_matMul_global.cu(166): warning: expression has no effect
+
+cmpe214_matMul_global.cu(166): warning: expression has no effect
+
+cmpe214_matMul_global.cu(166): error: expression must have integral or enum type
+
+2 errors detected in the compilation of "/tmp/tmpxft_000018a5_00000000-7_cmpe214_matMul_global.cpp1.ii".
+Makefile:30: recipe for target 'cmpe214_matMul_global.o' failed
+make: *** [cmpe214_matMul_global.o] Error 2
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ make global 
+nvcc -I/usr/local/cuda/include -I. -lineinfo -arch=sm_53 --ptxas-options=-v -g   -c cmpe214_matMul_global.cu -o cmpe214_matMul_global.o
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z9MatrixMulPfS_S_' for 'sm_53'
+ptxas info    : Function properties for _Z9MatrixMulPfS_S_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 17 registers, 344 bytes cmem[0]
+nvcc -I/usr/local/cuda/include -I. -lineinfo -arch=sm_53 --ptxas-options=-v -g  -o matrixMul_global cmpe214_matMul_global.o -L/usr/local/cuda/lib -lcudart
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ ./matrixMul_global 
+[MatrixMul of 32 x 32 elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 1 blocks of 1024 threads
+Copy output data from the CUDA device to the host memory
+Test PASSED
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ cp cmpe214_matMul_global.cu cmpe214_matMul_shared.cu
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ make shared 
+nvcc -I/usr/local/cuda/include -I. -lineinfo -arch=sm_53 --ptxas-options=-v -g   -c cmpe214_matMul_shared.cu -o cmpe214_matMul_shared.o
+cmpe214_matMul_shared.cu(54): error: identifier "width" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00001a08_00000000-7_cmpe214_matMul_shared.cpp1.ii".
+Makefile:30: recipe for target 'cmpe214_matMul_shared.o' failed
+make: *** [cmpe214_matMul_shared.o] Error 2
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ make shared 
+nvcc -I/usr/local/cuda/include -I. -lineinfo -arch=sm_53 --ptxas-options=-v -g   -c cmpe214_matMul_shared.cu -o cmpe214_matMul_shared.o
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z9MatrixMulPfS_S_' for 'sm_53'
+ptxas info    : Function properties for _Z9MatrixMulPfS_S_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 19 registers, 8192 bytes smem, 344 bytes cmem[0]
+nvcc -I/usr/local/cuda/include -I. -lineinfo -arch=sm_53 --ptxas-options=-v -g  -o matrixMul_shared cmpe214_matMul_shared.o -L/usr/local/cuda/lib -lcudart
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ ./matrixMul_shared 
+[MatrixMul of 32 x 32 elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 1 blocks of 1024 threads
+Copy output data from the CUDA device to the host memory
+Test PASSED
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ cp cmpe214_matMul_global.cu cmpe214_matMul_const.cu
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ make const 
+nvcc -I/usr/local/cuda/include -I. -lineinfo -arch=sm_53 --ptxas-options=-v -g   -c cmpe214_matMul_const.cu -o cmpe214_matMul_const.o
+ptxas info    : 0 bytes gmem, 4096 bytes cmem[3]
+ptxas info    : Compiling entry function '_Z9MatrixMulPfS_' for 'sm_53'
+ptxas info    : Function properties for _Z9MatrixMulPfS_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 14 registers, 336 bytes cmem[0]
+nvcc -I/usr/local/cuda/include -I. -lineinfo -arch=sm_53 --ptxas-options=-v -g  -o matrixMul_const cmpe214_matMul_const.o -L/usr/local/cuda/lib -lcudart
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ make global 
+nvcc -I/usr/local/cuda/include -I. -lineinfo -arch=sm_53 --ptxas-options=-v -g   -c cmpe214_matMul_global.cu -o cmpe214_matMul_global.o
+cmpe214_matMul_global.cu(168): error: identifier "d_runtime" is undefined
+
+1 error detected in the compilation of "/tmp/tmpxft_00001aee_00000000-7_cmpe214_matMul_global.cpp1.ii".
+Makefile:30: recipe for target 'cmpe214_matMul_global.o' failed
+make: *** [cmpe214_matMul_global.o] Error 2
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ make clean
+rm -f *.o matrixMul_*
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ make def=TM
+nvcc -I/usr/local/cuda/include -I. -lineinfo -arch=sm_53 --ptxas-options=-v -g  -DTM -c cmpe214_matMul_const.cu -o cmpe214_matMul_const.o
+ptxas info    : 0 bytes gmem, 4096 bytes cmem[3]
+ptxas info    : Compiling entry function '_Z9MatrixMulPfS_Py' for 'sm_53'
+ptxas info    : Function properties for _Z9MatrixMulPfS_Py
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 344 bytes cmem[0]
+nvcc -I/usr/local/cuda/include -I. -lineinfo -arch=sm_53 --ptxas-options=-v -g  -o matrixMul_const cmpe214_matMul_const.o -L/usr/local/cuda/lib -lcudart
+nvcc -I/usr/local/cuda/include -I. -lineinfo -arch=sm_53 --ptxas-options=-v -g  -DTM -c cmpe214_matMul_shared.cu -o cmpe214_matMul_shared.o
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z9MatrixMulPfS_S_Py' for 'sm_53'
+ptxas info    : Function properties for _Z9MatrixMulPfS_S_Py
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 23 registers, 8192 bytes smem, 352 bytes cmem[0]
+nvcc -I/usr/local/cuda/include -I. -lineinfo -arch=sm_53 --ptxas-options=-v -g  -o matrixMul_shared cmpe214_matMul_shared.o -L/usr/local/cuda/lib -lcudart
+nvcc -I/usr/local/cuda/include -I. -lineinfo -arch=sm_53 --ptxas-options=-v -g  -DTM -c cmpe214_matMul_global.cu -o cmpe214_matMul_global.o
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z9MatrixMulPfS_S_Py' for 'sm_53'
+ptxas info    : Function properties for _Z9MatrixMulPfS_S_Py
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 18 registers, 352 bytes cmem[0]
+nvcc -I/usr/local/cuda/include -I. -lineinfo -arch=sm_53 --ptxas-options=-v -g  -o matrixMul_global cmpe214_matMul_global.o -L/usr/local/cuda/lib -lcudart
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ ./matrixMul_shared 
+[MatrixMul of 32 x 32 elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 1 blocks of 1024 threads
+Copy output data from the CUDA device to the host memory
+Test PASSED
+Kernel Execution Time: 509 cycles
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ ./matrixMul_global 
+[MatrixMul of 32 x 32 elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 1 blocks of 1024 threads
+Copy output data from the CUDA device to the host memory
+Test PASSED
+Kernel Execution Time: 6 cycles
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ ./matrixMul_const 
+[MatrixMul of 32 x 32 elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 1 blocks of 1024 threads
+Copy output data from the CUDA device to the host memory
+Test PASSED
+Kernel Execution Time: 241 cycles
+ubuntu@tegra-ubuntu:~/Downloads/lab3$ 
